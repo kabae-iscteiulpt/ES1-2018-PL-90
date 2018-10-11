@@ -1,4 +1,4 @@
-package ServerPackage;
+package ComunPackage;
 
 public class User {
 	private String fullname;

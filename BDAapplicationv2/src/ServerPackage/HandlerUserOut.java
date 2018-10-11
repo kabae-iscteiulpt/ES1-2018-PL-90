@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import ComunPackage.Data;
 import ComunPackage.DataUser;
 import ComunPackage.TypeData;
+import ComunPackage.User;
 
 
 public class HandlerUserOut implements Runnable{
