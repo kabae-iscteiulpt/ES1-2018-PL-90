@@ -3,9 +3,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-
-
-
 public class Server {
 
 	private ServerSocket ss;
@@ -13,20 +10,21 @@ public class Server {
 	private Control control=new Control();
 
 
-	public void connect() {
+	public void connect(){
 		try {
+			
 			ss= new ServerSocket(PORTO);
 			do {
 				System.out.println("Waiting for connections...");
 				Socket s=ss.accept();
 				System.out.println("Conection accept: "+s);
-				new java.lang.Thread(new HandlerUserOut(s,control)).start();
-				new java.lang.Thread(new HandlerUserIn(s,control)).start();
+				new Thread(new HandlerUserOut(s,control)).start();
+				new Thread(new HandlerUserIn(s,control)).start();
 			}
 			while(true);
 
 		} catch (IOException e) {
-	
+
 		}
 
 	}

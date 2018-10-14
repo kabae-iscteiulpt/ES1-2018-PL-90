@@ -11,7 +11,8 @@ public class Control {
 	}
 	
 	public synchronized void putData(Data varData) {
-		while(data!=null) {
+		
+		while(data!=null){
 			try {
 				wait();
 			} catch (InterruptedException e) {

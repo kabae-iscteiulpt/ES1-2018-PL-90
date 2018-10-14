@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import ComunPackage.Data;
 import ComunPackage.DataUser;
 import ComunPackage.TypeData;
-import ComunPackage.User;
+import ComunPackage.User1;
 
 
 public class HandlerUserOut implements Runnable{
@@ -22,13 +22,13 @@ public class HandlerUserOut implements Runnable{
 	private Control ctrl;
 	private BufferedReader readFile;
 	private final String fileName="src/ServerPackage/dataUser.txt";
-	private ArrayList<User> listUser=new ArrayList<User>();
+	private ArrayList<User1> listUser=new ArrayList<User1>();
 
 	public HandlerUserOut(Socket s, Control ctrl) {
 		this.s=s;
 		this.ctrl=ctrl;
-		con();
 		readFile();
+		connect();
 	}
 
 
@@ -42,7 +42,7 @@ public class HandlerUserOut implements Runnable{
 			while(line != null) {
 
 				String[] array=line.split(",");
-				User user=new User(array[2], array[0], Integer.parseInt(array[1]), array[3]);
+				User1 user=new User1(array[2], array[0], Integer.parseInt(array[1]), array[3]);
 				listUser.add(user);
 
 				line=readFile.readLine();
@@ -56,10 +56,9 @@ public class HandlerUserOut implements Runnable{
 			e.printStackTrace();
 		}
 
-
 	}
 
-	public void con() {
+	public void connect() {
 		try {
 			out=new ObjectOutputStream(s.getOutputStream());
 			System.out.println("ConnectionOut done");
@@ -70,9 +69,9 @@ public class HandlerUserOut implements Runnable{
 	}
 
 
-	public User Validate(DataUser data){
+	public User1 Validate(DataUser data){
 
-		for(User u: listUser) {
+		for(User1 u: listUser) {
 			if(data.getUsername().equals(u.getUsername()) && data.getPassword()==u.getPassword()) {
 				return u;
 			}
@@ -80,75 +79,53 @@ public class HandlerUserOut implements Runnable{
 		return null;
 	}
 
-	public void dataProcess() {
+	// Process the data that coming from Client
+	public void dataProcess() throws IOException {
 		Data data=ctrl.takeData();
 		DataUser datauser=(DataUser) data.getContent();
 
-		//log acess
-		if (data.getType()==TypeData.REQUEST_LOG) {
+		//log acess analyze data
+		if (data.getType()==TypeData.REQUEST_LOG){
 
-			User u=Validate(datauser);
+			User1 u=Validate(datauser);
 
 			if(u != null) {
-				try {
-					out.flush();
-					out.writeObject(new Data(TypeData.ACESS_ACCEPT,new DataUser(u.getUsername(),
-							u.getPassword(), u.getFullname(),u.getEmail())));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				out.flush();
+				out.writeObject(new Data(TypeData.ACESS_ACCEPT,new DataUser(u.getUsername(),
+						u.getPassword(), u.getFullname(),u.getEmail())));
 			}
 			else {
-				try {
-					out.flush();
-					out.writeObject(new Data(TypeData.DENIED_ACESS,null));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				out.flush();
+				out.writeObject(new Data(TypeData.DENIED_ACESS,null));
 			}
 
 		}
 
-		//sigin analize data
+		//sigin analyze data
 
 		if(data.getType()==TypeData.REQUEST_SIGN) {
-			boolean can=true;
 
-			for(User u:listUser) {
-				if(u.getUsername()==datauser.getUsername()) {
-					can=false;
-					break;
-				}
-			}
-
-			try {
-				if(can==true) {
+			for(User1 u:listUser) {
+				if(u.getUsername().equals(datauser.getUsername())) {
 					out.flush();
-					out.writeObject(new Data(TypeData.USER_DO_NOT_EXIST, null));
-					User user=new User(datauser.getFullname(), datauser.getUsername(), datauser.getPassword(),datauser.getEmail());
-					listUser.add(user);
-					writeUser(fileName, user);
-
-
-				}
-				else {
-					out.flush();
-					out.writeObject(new Data(TypeData.USER_EXIST, null));				
+					out.writeObject(new Data(TypeData.USER_EXIST, null));
+					return;
 				}
 
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
-
+			out.flush();
+			out.writeObject(new Data(TypeData.USER_DO_NOT_EXIST, null));
+			User1 user=new User1(datauser.getFullname(), datauser.getUsername(), datauser.getPassword(),datauser.getEmail());
+			listUser.add(user);
+			//regist user in the file
+			writeUser(fileName, user);
 		}
 
 
 	}
 
-	public void writeUser(String fileName, User u) {
+
+	public void writeUser(String fileName, User1 u) {
 		FileWriter fileWriter;
 		try {
 			fileWriter = new FileWriter(new File(fileName),true);
@@ -166,7 +143,12 @@ public class HandlerUserOut implements Runnable{
 	@Override
 	public void run() {
 		while(true) {
-			dataProcess();
+			try {
+				dataProcess();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+			}
 		}
 
 	}

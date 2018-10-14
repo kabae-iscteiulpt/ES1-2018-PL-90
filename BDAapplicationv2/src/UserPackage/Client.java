@@ -11,6 +11,7 @@ import java.net.UnknownHostException;
 import javax.swing.JOptionPane;
 
 import ComunPackage.Data;
+import ComunPackage.DataUser;
 import ComunPackage.TypeData;
 
 
@@ -27,12 +28,11 @@ public class Client {
 	public static SiginUpFrame siginUpFrame;
 	public static Home_Window homeFrame;
 
-
 	public Client() {
 
 	}
 
-	void start() {
+	public void start() {
 		connectUser();
 		new Thread(new HandlerInput()).start();
 		logFrame=new LoginFrame(out);
@@ -42,7 +42,8 @@ public class Client {
 		init.setVisible(true);
 	}
 
-	public void connectUser() {
+	public void connectUser(){
+
 		try {
 			InetAddress address=InetAddress.getByName(null);
 			socketUser=new Socket(address, PORTO);
@@ -50,12 +51,9 @@ public class Client {
 			out= new ObjectOutputStream(socketUser.getOutputStream());
 			System.out.println("User Connected to Server");
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
 		}
 	}
 
@@ -65,16 +63,19 @@ public class Client {
 		@Override
 		public void run() {
 			while(true) {
+
 				try {
+
 					Data data=(Data) in.readObject();
-					
+
 					if(data.getType()==TypeData.ACESS_ACCEPT) {
 						EventQueue.invokeLater(new Runnable() {
 							public void run() {
 								try {
-													
+									DataUser datauser=(DataUser) data.getContent();
 									logFrame.setVisible(false);	
 									homeFrame.setVisible(true);
+									homeFrame.setUserNameAndMail(datauser.getFullname(),datauser.getEmail());
 									JOptionPane.showMessageDialog(null, "Sucess Login");
 								} catch (Exception e) {
 									e.printStackTrace();
@@ -82,22 +83,30 @@ public class Client {
 							}
 						});
 					}
-					
-					if(data.getType()==TypeData.DENIED_ACESS) {
-						JOptionPane.showMessageDialog(null, "Username or password incorect!");
-					}
-					
+
+
+					if(data.getType()==TypeData.DENIED_ACESS) 
+						JOptionPane.showMessageDialog(null, "Username or password incorrect!");
+
+
 					if(data.getType()==TypeData.USER_DO_NOT_EXIST) {
-						siginUpFrame.setVisible(false);
-						logFrame.setVisible(true);
-						JOptionPane.showMessageDialog(null, "Account created successefuly");
-						
+						EventQueue.invokeLater(new Runnable() {
+							public void run() {
+								try {
+									siginUpFrame.setVisible(false);
+									logFrame.setVisible(true);
+									JOptionPane.showMessageDialog(null, "Account created successfuly");
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+							}
+						});
 					}
-					
-					if(data.getType()==TypeData.USER_EXIST) {
-						JOptionPane.showMessageDialog(null, "Username already exist!");
-					}
-					
+
+					if(data.getType()==TypeData.USER_EXIST) 
+						JOptionPane.showMessageDialog(null, "Atention: Username already exist!");
+
+
 				} catch (ClassNotFoundException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

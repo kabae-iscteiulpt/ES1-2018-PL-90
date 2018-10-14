@@ -1,13 +1,13 @@
 package ComunPackage;
 
-public class User {
+public class User1 {
 	private String fullname;
 	private String username;
 	private int password;
 	private String email;
 	
 	
-	public User(String fullname, String username, int password, String email) {
+	public User1(String fullname, String username, int password, String email) {
 		this.fullname=fullname;
 		this.username=username;
 		this.password=password;

@@ -7,24 +7,26 @@ import java.net.Socket;
 import ComunPackage.Data;
 
 public class HandlerUserIn implements Runnable{
-	
+
 	private Socket s;
 	private ObjectInputStream in;
 	private Control ctrl;
-	
-	
+
+
 	public HandlerUserIn(Socket s,Control ctrl) {
 		this.s=s;
 		this.ctrl=ctrl;
-		con();
-	}
-	
-	public void con() {
 		try {
-			in=new ObjectInputStream(s.getInputStream());
-			System.out.println("ConnectionIn done");
+			connect();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
 		}
+	}
+
+	public void connect() throws IOException {
+		in=new ObjectInputStream(s.getInputStream());
+		System.out.println("ConnectionIn done");
 	}
 
 	@Override
@@ -38,10 +40,10 @@ public class HandlerUserIn implements Runnable{
 				//e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		}
-		
+
 	}
 
 
