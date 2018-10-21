@@ -13,7 +13,6 @@ public class Data implements Serializable {
 	public Data(TypeData type, Object content) {
 		this.type=type;
 		this.content=content;
-		// TODO Auto-generated constructor stub
 	}
 
 	public TypeData getType() {
@@ -23,6 +22,6 @@ public class Data implements Serializable {
 	public Object getContent() {
 		return content;
 	}
-	
+
 
 }

@@ -1,4 +1,5 @@
 package ServerPackage;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -18,6 +19,7 @@ public class Server {
 				System.out.println("Waiting for connections...");
 				Socket s=ss.accept();
 				System.out.println("Conection accept: "+s);
+		
 				new Thread(new HandlerUserOut(s,control)).start();
 				new Thread(new HandlerUserIn(s,control)).start();
 			}

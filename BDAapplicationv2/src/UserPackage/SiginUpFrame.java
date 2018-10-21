@@ -69,7 +69,7 @@ public class SiginUpFrame extends JFrame {
 
 		JLabel label_3 = new JLabel("");
 		label_3.setBounds(685, 0, 76, 20);
-		label_3.setIcon(new ImageIcon("C:\\Users\\User\\ES1-2018-PL-90\\images\\logominsize.PNG"));
+		label_3.setIcon(new ImageIcon(SiginUpFrame.class.getResource("/Image/logominsize.PNG")));
 		label_3.setHorizontalAlignment(SwingConstants.CENTER);
 		label_3.setForeground(new Color(255, 153, 0));
 		label_3.setFont(new Font("Lucida Calligraphy", Font.ITALIC, 13));
@@ -357,10 +357,10 @@ public class SiginUpFrame extends JFrame {
 		JButton btnBack = new JButton("Cancel");
 		btnBack.setBounds(205, 305, 115, 37);
 		panel_1.add(btnBack);
-		btnBack.setIcon(new ImageIcon("C:\\Users\\User\\ES1-2018-PL-90\\images\\error.png"));
+		btnBack.setIcon(new ImageIcon(SiginUpFrame.class.getResource("/Image/error.png")));
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				setVisible(false);
+				dispose();
 				Client.logFrame.setVisible(true);
 			}
 		});
@@ -369,7 +369,7 @@ public class SiginUpFrame extends JFrame {
 		JButton btnSiginUp = new JButton("Sigin Up");
 		btnSiginUp.setBounds(73, 305, 115, 37);
 		panel_1.add(btnSiginUp);
-		btnSiginUp.setIcon(new ImageIcon("C:\\Users\\User\\ES1-2018-PL-90\\images\\checked.png"));
+		btnSiginUp.setIcon(new ImageIcon(SiginUpFrame.class.getResource("/Image/checked.png")));
 		btnSiginUp.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -415,7 +415,7 @@ public class SiginUpFrame extends JFrame {
 		panel_2.setLayout(null);
 
 		JLabel lblSignupWindow = new JLabel("Register");
-		lblSignupWindow.setIcon(new ImageIcon("C:\\Users\\User\\ES1-2018-PL-90\\images\\add-user (1).png"));
+		lblSignupWindow.setIcon(new ImageIcon(SiginUpFrame.class.getResource("/Image/add-user (1).png")));
 		lblSignupWindow.setBounds(26, 79, 289, 219);
 		panel_2.add(lblSignupWindow);
 		lblSignupWindow.setHorizontalAlignment(SwingConstants.CENTER);
