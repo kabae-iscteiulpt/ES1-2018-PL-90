@@ -72,58 +72,64 @@ public class HandlerUserOut implements Runnable{
 	public User1 Validate(DataUser data){
 
 		for(User1 u: listUser) {
-			if(data.getUsername().equals(u.getUsername()) && data.getPassword()==u.getPassword()) {
+			if(data.getUsername().equals(u.getUsername()) && data.getPassword()==u.getPassword())
 				return u;
-			}
 		}
 		return null;
 	}
 
 	// Process the data that coming from Client
-	public void dataProcess() throws IOException {
+	public void processDataFromClient() throws IOException {
+
 		Data data=ctrl.takeData();
 		DataUser datauser=(DataUser) data.getContent();
 
-		//log acess analyze data
-		if (data.getType()==TypeData.REQUEST_LOG){
+		TypeData type=data.getType();
+
+		switch(type) {
+
+		case REQUEST_LOG:
 
 			User1 u=Validate(datauser);
 
 			if(u != null) {
 				out.flush();
-				out.writeObject(new Data(TypeData.ACESS_ACCEPT,new DataUser(u.getUsername(),
-						u.getPassword(), u.getFullname(),u.getEmail())));
+				out.writeObject(new Data(TypeData.ACESS_ACCEPT,
+						new DataUser(u.getUsername(), u.getPassword(), u.getFullname(),u.getEmail())));
 			}
 			else {
 				out.flush();
 				out.writeObject(new Data(TypeData.DENIED_ACESS,null));
 			}
 
-		}
+			break;
 
-		//sigin analyze data
+		case REQUEST_SIGN:
 
-		if(data.getType()==TypeData.REQUEST_SIGN) {
+			for(User1 user:listUser) {
 
-			for(User1 u:listUser) {
-				if(u.getUsername().equals(datauser.getUsername())) {
+				if(user.getUsername().equals(datauser.getUsername())) {
 					out.flush();
 					out.writeObject(new Data(TypeData.USER_EXIST, null));
 					return;
 				}
 
 			}
+
 			out.flush();
 			out.writeObject(new Data(TypeData.USER_DO_NOT_EXIST, null));
 			User1 user=new User1(datauser.getFullname(), datauser.getUsername(), datauser.getPassword(),datauser.getEmail());
 			listUser.add(user);
 			//regist user in the file
 			writeUser(fileName, user);
+
+			break;
+
+		default:
+
+			break;
 		}
-
-
 	}
-
 
 	public void writeUser(String fileName, User1 u) {
 		FileWriter fileWriter;
@@ -142,15 +148,15 @@ public class HandlerUserOut implements Runnable{
 
 	@Override
 	public void run() {
+
 		while(true) {
 			try {
-				dataProcess();
+				processDataFromClient();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				//e.printStackTrace();
+				e.printStackTrace();
 			}
 		}
-
 	}
 
 

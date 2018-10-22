@@ -8,3 +8,7 @@ kabae,314635070,keven Ailton Borges Andrade,kabae@iscte.pt
 mario2,-983844538,Mario da Silva,mario@gmail.com
 catia,1672936748,Catia Mendes Almeida,catiaalmeida@hotmail.com
 paulo,637185637,Paulo Nunes,paulo@gmail.com
+daniel,-1573868796,Daniel dos Santos,daniel@gmail.com
+pcolaco,-630058415,Pedro Colaço,pcolaco@primeit.pt
+pedro,1282573937,Pedro Pina,pedro@gmail.com
+anonimo,-1052381468,anonimo,anonimo@gmail.com

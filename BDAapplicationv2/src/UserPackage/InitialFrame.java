@@ -119,11 +119,11 @@ public class InitialFrame extends JFrame {
 		label_2 = new JLabel("");
 		label_2.setBounds(10, 11, 209, 102);
 		panel_1.add(label_2);
-		label_2.setIcon(new ImageIcon("C:\\Users\\User\\ES1-2018-PL-90\\images\\LogoSystem.PNG"));
+		label_2.setIcon(new ImageIcon(InitialFrame.class.getResource("/Image/LogoSystem.PNG")));
 		jLabel3 = new javax.swing.JLabel();
 		jLabel3.setBounds(10, 213, 150, 24);
 		panel.add(jLabel3);
-		jLabel3.setIcon(new ImageIcon("C:\\Users\\User\\ES1-2018-PL-90\\images\\copyright-symbol.png"));
+		jLabel3.setIcon(new ImageIcon(InitialFrame.class.getResource("/Image/copyright-symbol.png")));
 
 		jLabel3.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11)); // NOI18N
 		jLabel3.setText("CopyRight@2018");

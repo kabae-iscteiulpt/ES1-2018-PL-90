@@ -1,31 +1,24 @@
 package ServerPackage;
+import java.util.LinkedList;
 
 import ComunPackage.Data;
 
 public class Control {
-	
-	private Data data=null;
+
+	private LinkedList<Data> listData=new LinkedList<Data>();
 	
 	public Control() {
 		// TODO Auto-generated constructor stub
 	}
 	
 	public synchronized void putData(Data varData) {
-		
-		while(data!=null){
-			try {
-				wait();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		data=varData;
+		listData.add(varData);
 		notifyAll();
 	}
 
 	public synchronized Data takeData() {
-		while(data==null) {
+		
+		while(listData.size()==0) {
 			try {
 				wait();
 			} catch (InterruptedException e) {
@@ -33,10 +26,10 @@ public class Control {
 				e.printStackTrace();
 			}
 		}
-		Data aux=data;
-		data=null;
+		Data aux=listData.poll();
 		notifyAll();
 		return aux;
+		
 	}
 
 }

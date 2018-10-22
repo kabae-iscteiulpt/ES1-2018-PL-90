@@ -26,10 +26,7 @@ import javax.swing.UIManager;
 import ComunPackage.Data;
 import ComunPackage.DataUser;
 import ComunPackage.TypeData;
-
-import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-import javax.swing.DropMode;
 
 
 public class LoginFrame extends JFrame {
@@ -37,6 +34,7 @@ public class LoginFrame extends JFrame {
 	/**
 	 * 
 	 */
+	
 	private static final long serialVersionUID = -9221336562521229333L;
 
 	public JTextField usernameField;
@@ -64,12 +62,12 @@ public class LoginFrame extends JFrame {
 
 		JLabel label_4 = new JLabel("");
 		label_4.setBounds(0, 0, 159, 37);
-		label_4.setIcon(new ImageIcon("C:\\Users\\User\\ES1-2018-PL-90\\images\\isctelogo.PNG"));
+		label_4.setIcon(new ImageIcon(LoginFrame.class.getResource("/Image/isctelogo.PNG")));
 		panel.add(label_4);
 
 		JLabel label_5 = new JLabel("");
 		label_5.setBounds(706, 0, 77, 22);
-		label_5.setIcon(new ImageIcon("C:\\Users\\User\\ES1-2018-PL-90\\images\\logominsize.PNG"));
+		label_5.setIcon(new ImageIcon(LoginFrame.class.getResource("/Image/logominsize.PNG")));
 		panel.add(label_5);
 
 		JPanel panel_1 = new JPanel();
@@ -174,7 +172,7 @@ public class LoginFrame extends JFrame {
 		});
 
 		button.setInheritsPopupMenu(true);
-		button.setIcon(new ImageIcon("C:\\Users\\User\\ES1-2018-PL-90\\images\\lock (1).png"));
+		button.setIcon(new ImageIcon(LoginFrame.class.getResource("/Image/lock (1).png")));
 		button.setHorizontalAlignment(SwingConstants.LEFT);
 		button.setFont(new Font("Arial", Font.BOLD, 13));
 		button.setBackground(UIManager.getColor("Button.background"));
@@ -190,7 +188,7 @@ public class LoginFrame extends JFrame {
 		btncreateAccount.setBounds(158, 284, 159, 37);
 		panel_1.add(btncreateAccount);
 		btncreateAccount.setForeground(SystemColor.textText);
-		btncreateAccount.setIcon(new ImageIcon("C:\\Users\\User\\ES1-2018-PL-90\\images\\create account2.png"));
+		btncreateAccount.setIcon(new ImageIcon(LoginFrame.class.getResource("/Image/create account2.png")));
 		btncreateAccount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new Thread(new Runnable() {
@@ -199,7 +197,7 @@ public class LoginFrame extends JFrame {
 						EventQueue.invokeLater(new Runnable() {
 							public void run() {
 								try {
-									setVisible(false);
+									dispose();
 									Client.siginUpFrame.raiseTf();
 									Client.siginUpFrame.hide();
 									Client.siginUpFrame.raiseTf1();
@@ -231,7 +229,7 @@ public class LoginFrame extends JFrame {
 
 		JLabel labelLogo = new JLabel("");
 		labelLogo.setBounds(13, 137, 209, 102);
-		labelLogo.setIcon(new ImageIcon("C:\\Users\\User\\ES1-2018-PL-90\\images\\LogoSystem.PNG"));
+		labelLogo.setIcon(new ImageIcon(LoginFrame.class.getResource("/Image/LogoSystem.PNG")));
 		panel.add(labelLogo);
 
 		JLabel label_3 = new JLabel("Bom dia Academia");

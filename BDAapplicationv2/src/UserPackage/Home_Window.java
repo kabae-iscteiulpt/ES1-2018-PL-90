@@ -55,26 +55,26 @@ public class Home_Window extends JFrame {
 		panel.setLayout(null);
 		
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon("C:\\Users\\User\\ES1-2018-PL-90\\images\\logominsize.PNG"));
+		label.setIcon(new ImageIcon(Home_Window.class.getResource("/Image/logominsize.PNG")));
 		label.setBounds(713, 11, 75, 26);
 		panel.add(label);
 		
 		JButton btnLogOf = new JButton("Logout");
 		btnLogOf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				setVisible(false);
+				dispose();
 				Client.logFrame.passwordField.setText("");
 				Client.logFrame.usernameField.setText("");
 				Client.logFrame.setVisible(true);
 			}
 		});
 		btnLogOf.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnLogOf.setIcon(new ImageIcon("C:\\Users\\User\\ES1-2018-PL-90\\images\\logout.png"));
+		btnLogOf.setIcon(new ImageIcon(Home_Window.class.getResource("/Image/logout.png")));
 		btnLogOf.setBounds(20, 342, 114, 43);
 		panel.add(btnLogOf);
 		
 		JButton button = new JButton("");
-		button.setIcon(new ImageIcon("C:\\Users\\User\\ES1-2018-PL-90\\images\\tools.png"));
+		button.setIcon(new ImageIcon(Home_Window.class.getResource("/Image/tools.png")));
 		button.setBounds(728, 342, 60, 43);
 		panel.add(button);
 		
@@ -109,7 +109,7 @@ public class Home_Window extends JFrame {
 		
 		JLabel label_1 = new JLabel("");
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
-		label_1.setIcon(new ImageIcon("C:\\Users\\User\\ES1-2018-PL-90\\images\\man-user.png"));
+		label_1.setIcon(new ImageIcon(Home_Window.class.getResource("/Image/man-user.png")));
 		label_1.setBounds(10, 11, 64, 83);
 		panel_1.add(label_1);
 	}
