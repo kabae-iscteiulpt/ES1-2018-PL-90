@@ -80,7 +80,6 @@ public class GmailFrame extends JFrame {
 			}
 		});
 		btnSend.setBounds(90, 41, 107, 23);
-		
 		getContentPane().add(btnSend);
 		
 		JScrollPane scrollPane = new JScrollPane();
