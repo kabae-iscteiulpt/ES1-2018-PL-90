@@ -1,4 +1,4 @@
-package UserPackage;
+package version2;
 
 
 import java.awt.BorderLayout;
@@ -10,9 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,9 +20,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
-import ComunPackage.Data;
-import ComunPackage.DataUser;
-import ComunPackage.TypeData;
 import javax.swing.border.LineBorder;
 
 
@@ -34,22 +28,24 @@ public class LoginFrame extends JFrame {
 	/**
 	 * 
 	 */
-	
+
 	private static final long serialVersionUID = -9221336562521229333L;
 
 	public JTextField usernameField;
 	public JPasswordField passwordField;
-	@SuppressWarnings("unused")
-	private ObjectOutputStream out;
+	private ComunClass comunClass;
 
 
 	/**
 	 * Create the frame.
 	 * @param out 
 	 */
-	public LoginFrame(ObjectOutputStream out) {
-		this.out=out;
+	public LoginFrame(ComunClass comunClass) {
+		this.comunClass=comunClass;
+		configureWindow();
+	}
 
+	public void configureWindow() {
 		setTitle("BDAapplication");
 		setResizable(false);
 		setBounds(100, 100, 789, 478);
@@ -97,25 +93,32 @@ public class LoginFrame extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode()==KeyEvent.VK_ENTER) {
-					
+
 					char[] v=passwordField.getPassword();
 					String pwd=String.copyValueOf(v);
+					String username=usernameField.getText();
 
-					if(!pwd.isEmpty() && !usernameField.getText().isEmpty()) {
-						try {
-							out.flush();
-							out.writeObject(new Data(TypeData.REQUEST_LOG,new DataUser(usernameField.getText(),pwd.hashCode(), null,null)));
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
+					if(!pwd.isEmpty() && !username.isEmpty()) {
+
+						User1 u=comunClass.Validate(username, pwd.hashCode());
+						if(u != null) {
+							Home_Window home=new Home_Window(comunClass);
+							home.setUserNameAndMail(u.getFullname(), u.getEmail());
+							dispose();
+							home.setVisible(true);
+							JOptionPane.showMessageDialog(null, "Sucess Login");
 						}
+						else {
+							JOptionPane.showMessageDialog(null, "Username and/or password incorrect!");
+						}
+
 					}
 					else
 						JOptionPane.showMessageDialog(null,"Please complete all the fields!");
 				}
 			}
 		});
-		
+
 		usernameField.setHorizontalAlignment(SwingConstants.LEFT);
 		usernameField.setFont(new Font("Arial", Font.ITALIC, 12));
 		usernameField.setColumns(20);
@@ -127,20 +130,28 @@ public class LoginFrame extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent arg0) {
 				if(arg0.getKeyCode()==KeyEvent.VK_ENTER) {
+
 					char[] v=passwordField.getPassword();
 					String pwd=String.copyValueOf(v);
+					String username=usernameField.getText();
 
-					if(!pwd.isEmpty() && !usernameField.getText().isEmpty()) {
-						try {
-							out.flush();
-							out.writeObject(new Data(TypeData.REQUEST_LOG,new DataUser(usernameField.getText(),pwd.hashCode(), null,null)));
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+					if(!pwd.isEmpty() && !username.isEmpty()) {
+
+						User1 u=comunClass.Validate(username, pwd.hashCode());
+						if(u != null) {
+							Home_Window home=new Home_Window(comunClass);
+							home.setUserNameAndMail(u.getFullname(), u.getEmail());
+							dispose();
+							home.setVisible(true);
+							JOptionPane.showMessageDialog(null, "Sucess Login");
 						}
+						else {
+							JOptionPane.showMessageDialog(null, "Username and/or password incorrect!");
+						}
+
 					}
 					else
-						JOptionPane.showMessageDialog(null,"Please complete all the fields!");	
+						JOptionPane.showMessageDialog(null,"Please complete all the fields!");
 				}
 			}
 		});
@@ -153,21 +164,28 @@ public class LoginFrame extends JFrame {
 
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+
 				char[] v=passwordField.getPassword();
 				String pwd=String.copyValueOf(v);
+				String username=usernameField.getText();
 
-				if(!pwd.isEmpty() && !usernameField.getText().isEmpty()) {
-					try {
-						out.flush();
-						out.writeObject(new Data(TypeData.REQUEST_LOG,new DataUser(usernameField.getText(),pwd.hashCode(), null,null)));
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+				if(!pwd.isEmpty() && !username.isEmpty()) {
+
+					User1 u=comunClass.Validate(username, pwd.hashCode());
+					if(u != null) {
+						Home_Window home=new Home_Window(comunClass);
+						home.setUserNameAndMail(u.getFullname(), u.getEmail());
+						dispose();
+						home.setVisible(true);
+						JOptionPane.showMessageDialog(null, "Sucess Login");
 					}
+					else {
+						JOptionPane.showMessageDialog(null, "Username and/or password incorrect!");
+					}
+
 				}
 				else
 					JOptionPane.showMessageDialog(null,"Please complete all the fields!");
-
 			}
 		});
 
@@ -198,13 +216,7 @@ public class LoginFrame extends JFrame {
 							public void run() {
 								try {
 									dispose();
-									Client.siginUpFrame.raiseTf();
-									Client.siginUpFrame.hide();
-									Client.siginUpFrame.raiseTf1();
-									Client.siginUpFrame.raiseTf2();
-									Client.siginUpFrame.raiseTf3();
-									Client.siginUpFrame.raiseTf4();
-									Client.siginUpFrame.setVisible(true);
+									new SiginUpFrame(comunClass).setVisible(true);
 								} catch (Exception e) {
 									e.printStackTrace();
 								}
@@ -215,7 +227,7 @@ public class LoginFrame extends JFrame {
 
 			}
 		});
-		
+
 		btncreateAccount.setInheritsPopupMenu(true);
 		btncreateAccount.setFont(new Font("Arial", Font.BOLD, 13));
 		btncreateAccount.setBackground(UIManager.getColor("Button.background"));

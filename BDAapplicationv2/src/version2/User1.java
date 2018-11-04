@@ -1,39 +1,43 @@
-package ComunPackage;
+package version2;
 
 import java.io.Serializable;
 
-public class DataUser implements Serializable{
+public class User1 implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private String fullname;
 	private String username;
 	private int password;
-	private String fullname;
 	private String email;
-
-	public DataUser(String username, int i, String fullname, String email) {
-		this.username=username;
-		this.password=i;
+	
+	
+	public User1(String fullname, String username, int password, String email) {
 		this.fullname=fullname;
-		this.email=email;
-		// TODO Auto-generated constructor stub
+		this.username=username;
+		this.password=password;
+		this.email=email;		
 	}
 
-	public String getEmail() {
-		return email;
-	}
 
 	public String getFullname() {
 		return fullname;
 	}
 
+
 	public String getUsername() {
 		return username;
 	}
 
+
 	public int getPassword() {
 		return password;
+	}
+
+
+	public String getEmail() {
+		return email;
 	}
 
 }

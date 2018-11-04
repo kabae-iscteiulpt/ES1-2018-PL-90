@@ -1,4 +1,4 @@
-package UserPackage;
+package version2;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -8,9 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,11 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-
-import ComunPackage.Data;
-import ComunPackage.DataUser;
-import ComunPackage.TypeData;
 import javax.swing.border.LineBorder;
+
 
 
 
@@ -44,14 +39,17 @@ public class SiginUpFrame extends JFrame {
 	private JTextField textField_4;
 	private JLabel lblConfirmPassword;
 	private JLabel warningLabel;
-	@SuppressWarnings("unused")
-	private ObjectOutputStream out;
+	private ComunClass comunClass;
 
 	/**
 	 * Create the frame.
 	 */
-	public SiginUpFrame(ObjectOutputStream out) {
-		this.out=out;
+	public SiginUpFrame(ComunClass comunClass) {
+		this.comunClass=comunClass;
+		configureWindow();
+
+	}
+	public void configureWindow() {
 
 		setTitle("BDAapplication");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -109,14 +107,20 @@ public class SiginUpFrame extends JFrame {
 									JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
 
 							if(choice==0) {
-								try {
-									out.flush();
-									out.writeObject(new Data(TypeData.REQUEST_SIGN,new DataUser(textField.getText(), textField_2.getText().hashCode(), 
-											textField_1.getText(), textField_4.getText())));
-								} catch (IOException e1) {
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
-								}		
+								ArrayList<User1> listUser=comunClass.getListUser();
+								for(User1 user:listUser) {
+									if(user.getUsername().equals(textField.getText())) {
+										JOptionPane.showMessageDialog(null, "Atention: Username already exist! Try new username");
+										return;
+									}
+
+								}
+								User1 user=new User1(textField_1.getText(),textField.getText(),textField_2.getText().hashCode(),textField_4.getText());
+								comunClass.setUser(user);
+								comunClass.writeUser(user);
+								JOptionPane.showMessageDialog(null, "Account created successfuly");
+								dispose();
+								new LoginFrame(comunClass).setVisible(true);
 							}
 
 						}	
@@ -165,6 +169,7 @@ public class SiginUpFrame extends JFrame {
 
 				if(e.getKeyCode()==KeyEvent.VK_ENTER) {
 
+
 					if(!textField.getText().isEmpty() && !textField_1.getText().isEmpty() 
 							&& !textField_2.getText().isEmpty() && !textField_3.getText().isEmpty()) {
 
@@ -176,14 +181,20 @@ public class SiginUpFrame extends JFrame {
 									JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
 
 							if(choice==0) {
-								try {
-									out.flush();
-									out.writeObject(new Data(TypeData.REQUEST_SIGN,new DataUser(textField.getText(), textField_2.getText().hashCode(), 
-											textField_1.getText(), textField_4.getText())));
-								} catch (IOException e1) {
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
-								}		
+								ArrayList<User1> listUser=comunClass.getListUser();
+								for(User1 user:listUser) {
+									if(user.getUsername().equals(textField.getText())) {
+										JOptionPane.showMessageDialog(null, "Atention: Username already exist! Try new username");
+										return;
+									}
+
+								}
+								User1 user=new User1(textField_1.getText(),textField.getText(),textField_2.getText().hashCode(),textField_4.getText());
+								comunClass.setUser(user);
+								comunClass.writeUser(user);
+								JOptionPane.showMessageDialog(null, "Account created successfuly");
+								dispose();
+								new LoginFrame(comunClass).setVisible(true);
 							}
 
 						}	
@@ -233,14 +244,20 @@ public class SiginUpFrame extends JFrame {
 									JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
 
 							if(choice==0) {
-								try {
-									out.flush();
-									out.writeObject(new Data(TypeData.REQUEST_SIGN,new DataUser(textField.getText(), textField_2.getText().hashCode(), 
-											textField_1.getText(), textField_4.getText())));
-								} catch (IOException e1) {
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
-								}		
+								ArrayList<User1> listUser=comunClass.getListUser();
+								for(User1 user:listUser) {
+									if(user.getUsername().equals(textField.getText())) {
+										JOptionPane.showMessageDialog(null, "Atention: Username already exist! Try new username");
+										return;
+									}
+
+								}
+								User1 user=new User1(textField_1.getText(),textField.getText(),textField_2.getText().hashCode(),textField_4.getText());
+								comunClass.setUser(user);
+								comunClass.writeUser(user);
+								JOptionPane.showMessageDialog(null, "Account created successfuly");
+								dispose();
+								new LoginFrame(comunClass).setVisible(true);
 							}
 
 						}	
@@ -280,14 +297,20 @@ public class SiginUpFrame extends JFrame {
 									JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
 
 							if(choice==0) {
-								try {
-									out.flush();
-									out.writeObject(new Data(TypeData.REQUEST_SIGN,new DataUser(textField.getText(), textField_2.getText().hashCode(), 
-											textField_1.getText(), textField_4.getText())));
-								} catch (IOException e1) {
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
-								}		
+								ArrayList<User1> listUser=comunClass.getListUser();
+								for(User1 user:listUser) {
+									if(user.getUsername().equals(textField.getText())) {
+										JOptionPane.showMessageDialog(null, "Atention: Username already exist! Try new username");
+										return;
+									}
+
+								}
+								User1 user=new User1(textField_1.getText(),textField.getText(),textField_2.getText().hashCode(),textField_4.getText());
+								comunClass.setUser(user);
+								comunClass.writeUser(user);
+								JOptionPane.showMessageDialog(null, "Account created successfuly");
+								dispose();
+								new LoginFrame(comunClass).setVisible(true);
 							}
 
 						}	
@@ -313,6 +336,7 @@ public class SiginUpFrame extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent arg0) {
 				if(arg0.getKeyCode()==KeyEvent.VK_ENTER) {
+
 					if(!textField.getText().isEmpty() && !textField_1.getText().isEmpty() 
 							&& !textField_2.getText().isEmpty() && !textField_3.getText().isEmpty()) {
 
@@ -324,14 +348,20 @@ public class SiginUpFrame extends JFrame {
 									JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
 
 							if(choice==0) {
-								try {
-									out.flush();
-									out.writeObject(new Data(TypeData.REQUEST_SIGN,new DataUser(textField.getText(), textField_2.getText().hashCode(), 
-											textField_1.getText(), textField_4.getText())));
-								} catch (IOException e1) {
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
-								}		
+								ArrayList<User1> listUser=comunClass.getListUser();
+								for(User1 user:listUser) {
+									if(user.getUsername().equals(textField.getText())) {
+										JOptionPane.showMessageDialog(null, "Atention: Username already exist! Try new username");
+										return;
+									}
+
+								}
+								User1 user=new User1(textField_1.getText(),textField.getText(),textField_2.getText().hashCode(),textField_4.getText());
+								comunClass.setUser(user);
+								comunClass.writeUser(user);
+								JOptionPane.showMessageDialog(null, "Account created successfuly");
+								dispose();
+								new LoginFrame(comunClass).setVisible(true);
 							}
 
 						}	
@@ -361,7 +391,7 @@ public class SiginUpFrame extends JFrame {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
-				Client.logFrame.setVisible(true);
+				new LoginFrame(comunClass).setVisible(true);
 			}
 		});
 		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -374,6 +404,7 @@ public class SiginUpFrame extends JFrame {
 
 			public void actionPerformed(ActionEvent e) {
 
+
 				if(!textField.getText().isEmpty() && !textField_1.getText().isEmpty() 
 						&& !textField_2.getText().isEmpty() && !textField_3.getText().isEmpty()) {
 
@@ -385,14 +416,20 @@ public class SiginUpFrame extends JFrame {
 								JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
 
 						if(choice==0) {
-							try {
-								out.flush();
-								out.writeObject(new Data(TypeData.REQUEST_SIGN,new DataUser(textField.getText(), textField_2.getText().hashCode(), 
-										textField_1.getText(), textField_4.getText())));
-							} catch (IOException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}		
+							ArrayList<User1> listUser=comunClass.getListUser();
+							for(User1 user:listUser) {
+								if(user.getUsername().equals(textField.getText())) {
+									JOptionPane.showMessageDialog(null, "Atention: Username already exist! Try new username");
+									return;
+								}
+
+							}
+							User1 user=new User1(textField_1.getText(),textField.getText(),textField_2.getText().hashCode(),textField_4.getText());
+							comunClass.setUser(user);
+							comunClass.writeUser(user);
+							JOptionPane.showMessageDialog(null, "Account created successfuly");
+							dispose();
+							new LoginFrame(comunClass).setVisible(true);
 						}
 
 					}	
@@ -421,28 +458,7 @@ public class SiginUpFrame extends JFrame {
 		lblSignupWindow.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSignupWindow.setForeground(SystemColor.activeCaption);
 		lblSignupWindow.setFont(new Font("Mongolian Baiti", Font.BOLD, 36));
+
 	}
 
-	public void hide() {
-		textField_3.setVisible(false);
-		lblConfirmPassword.setVisible(false);
-		warningLabel.setText("");
-	}
-
-	//raise methods
-	public void raiseTf() {
-		textField.setText("");
-	}
-	public void raiseTf1() {
-		textField_1.setText("");
-	}
-	public void raiseTf2() {
-		textField_2.setText("");
-	}
-	public void raiseTf3() {
-		textField_3.setText("");
-	}
-	public void raiseTf4() {
-		textField_4.setText("");
-	}
 }

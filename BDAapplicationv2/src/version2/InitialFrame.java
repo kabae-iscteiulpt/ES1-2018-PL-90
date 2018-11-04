@@ -1,4 +1,4 @@
-package UserPackage;
+package version2;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -30,13 +30,15 @@ public class InitialFrame extends JFrame {
 	private JLabel label_1;
 	private JLabel label_2;
 	private JPanel panel_1;
+	private ComunClass comunClass;
 
 
 	/**
 	 * Create the frame.
 	 * @param out 
 	 */
-	public InitialFrame() {
+	public InitialFrame(ComunClass comunClass) {
+		this.comunClass=comunClass;
 		initComponents();
 		animation();
 	}
@@ -60,7 +62,7 @@ public class InitialFrame extends JFrame {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							Client.logFrame.setVisible(true);
+							new LoginFrame(comunClass).setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -136,6 +138,5 @@ public class InitialFrame extends JFrame {
 
 		setSize(new Dimension(562, 248));
 		setLocationRelativeTo(null);
-		setVisible(true);
 	}
 }
